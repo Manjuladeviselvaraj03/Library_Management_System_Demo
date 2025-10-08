@@ -1,12 +1,9 @@
 package com.mini.project.lib.man.library.management.system.Model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
 @Entity
 @Data
 @Table(name = "BorrowHistory")
