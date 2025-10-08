@@ -14,7 +14,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CategoryID")
     private long  Id;
-    private String Name;
+    private String Bookname;
     @OneToMany(mappedBy = "Category",cascade = CascadeType.ALL)
     private List<Book> Books;
 
@@ -27,7 +27,7 @@ public class Category {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {

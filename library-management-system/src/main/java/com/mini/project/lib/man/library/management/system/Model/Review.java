@@ -12,8 +12,8 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int Rating;
-    private String Comment;
+    private int rating;
+    private String comment;
 
     // multiple reviews given by one user
     @ManyToOne
