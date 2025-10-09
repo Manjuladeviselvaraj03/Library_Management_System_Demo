@@ -8,46 +8,44 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @RestController
 @RequestMapping("/book")
 public class BookController {
+
     @Autowired
     private BookService bookService;
-    //To see all the books
-    public List<Book> getAllBooks(){
-        return  bookService.getAllBooks();
+
+    // Get all books
+    @GetMapping
+    public List<Book> getAllBooks() {
+        return bookService.getAllBooks();
     }
 
-    //For getting book id
+    //  Get book by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable Long id){
-        Book book=bookService.getBookById(id);
-        return ResponseEntity.ok(book);///////////////////////////////////////////////////////
+    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
+        Book book = bookService.getBookById(id);
+        return ResponseEntity.ok(book);
     }
 
-    //Add new Book
+    //  Add new book
     @PostMapping
-    public ResponseEntity<Book> addBook(@RequestBody Book book){
-        Book saved=bookService.addBook(book);
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+        Book saved = bookService.addBook(book);
         return ResponseEntity.ok(saved);
     }
 
-    //Update the Book
+    //  Update book
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@RequestBody Book book){
-        Book updated=bookService.updateBook(id,book);
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
+        Book updated = bookService.updateBook(id, book);
         return ResponseEntity.ok(updated);
-
-
-
     }
 
-    public ResponseEntity<String> deleteBook(@PathVariable Long id){
-        bookService.delteBook(id);
+    //  Delete book
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable Long id) {
+        bookService.deleteBook(id);
         return ResponseEntity.ok("Book deleted successfully");
     }
-
-
 }

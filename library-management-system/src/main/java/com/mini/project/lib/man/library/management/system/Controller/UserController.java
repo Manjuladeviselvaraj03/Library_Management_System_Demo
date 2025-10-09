@@ -24,31 +24,29 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){
-        User User=userService.getUserById(id);
-        return ResponseEntity.ok(User);
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
 
     }
 
     //Add new user
     @PostMapping
     public ResponseEntity<User> addNewUser(@RequestBody User user){
-        User saved=userService.addNewUsers(user);
+        User saved = userService.addNewUsers(user);
         return ResponseEntity.ok(saved);
     }
 
-    //Update new user
-    @PutMapping("/{id]")
-    public ResponseEntity<User> updateNewUser(@PathVariable Long id,@RequestBody User user){
-        User update=userService.updateNewUser();
+    //Update existing user
+    @PutMapping("/{id}") // Corrected mapping from /"{id]" to "/{id}"
+    public ResponseEntity<User> updateNewUser(@PathVariable Long id, @RequestBody User user){
+        User update = userService.updateNewUser(id, user); // Corrected method call signature
         return ResponseEntity.ok(update);
     }
-    //Delete
-    @DeleteMapping
+
+    //Delete user
+    @DeleteMapping("/{id}") // Added path variable to delete
     public ResponseEntity<String> deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
         return ResponseEntity.ok("User deleted successfully");
     }
-
-
-
 }

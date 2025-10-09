@@ -5,6 +5,7 @@ import com.mini.project.lib.man.library.management.system.Repository.UserReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 @Service
 public class UserService {
@@ -17,19 +18,27 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userrepo.findById(id).get();
+        return userrepo.findById(id).orElseThrow(() -> new RuntimeException("User not found: " + id));
     }
 
     public User addNewUsers(User user) {
-
-        if(userrepo.existsByEmailAndPassword(user))
-        return null;
+        user.setJoindate(LocalDate.now());
+        user.setTotalBooksBorrowed(0);
+        user.setCurrentStreak(0);
+        return userrepo.save(user);
     }
 
-    public User updateNewUser() {
+    public User updateNewUser(Long id, User userDetails) {
+        User existingUser = getUserById(id);
+        existingUser.setName(userDetails.getName());
+        existingUser.setEmail(userDetails.getEmail());
+        if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
+            existingUser.setPassword(userDetails.getPassword());
+        }
+        return userrepo.save(existingUser);
     }
 
     public void deleteUser(Long id) {
-
+        userrepo.deleteById(id);
     }
 }

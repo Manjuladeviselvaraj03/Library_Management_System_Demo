@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+
 @Entity
 @Data
 @Table(name = "BorrowHistory")
@@ -18,10 +19,14 @@ public class BorrowHistory {
     private Boolean Returned;
     private Double Fine;
 
-    @OneToMany
-    @JoinColumn(name = "User id",nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @OneToMany
-    @JoinColumn(name = "Book id",nullable = false)
+
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
+
+    public BorrowHistory() {
+    }
 }
